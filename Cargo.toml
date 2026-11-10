@@ -1,0 +1,42 @@
+[package]
+name = "hexm"
+version = "0.1.0"
+edition = "2024"
+description = "Axial-coordinate vector types for hexagonal grids"
+authors = ["Huang Yifan <yifan0610@foxmail.com>"]
+license = "MIT OR Apache-2.0"
+readme = "README.md"
+categories = ["game-engines", "no-std"]
+keywords = ["gamedev", "math", "vector"]
+repository = "https://github.com/huangyifan0610/hexm"
+documentation = "https://docs.rs/hexm"
+
+[features]
+default = ["std", "f32", "f64", "i8", "i16", "i32", "i64", "isize"]
+
+# No-std supports.
+std = ["glam/std"]
+libm = ["glam/libm"]
+
+# Type-specific features.
+f32 = []
+f64 = ["glam/f64"]
+i8 = ["glam/i8"]
+i16 = ["glam/i16"]
+i32 = ["glam/i32"]
+i64 = ["glam/i64"]
+isize = ["glam/isize"]
+
+[dependencies]
+glam = { version = "0.34.3", default-features = false }
+
+[lints]
+[lints.clippy]
+std_instead_of_core = "deny"
+std_instead_of_alloc = "deny"
+alloc_instead_of_core = "deny"
+
+[lints.rust]
+missing_docs = "warn"
+missing_copy_implementations = "warn"
+missing_debug_implementations = "warn"
