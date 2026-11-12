@@ -52,3 +52,5 @@ mod r#impl;
 mod iter;
 mod marker;
 mod ops;
+#[cfg(feature = "serde")]
+mod serde;
