@@ -42,6 +42,8 @@ pub mod prelude {
     pub use crate::isize::{ISizeHex, isizehex};
 }
 
+#[cfg(feature = "approx")]
+mod approx;
 mod clone;
 mod cmp;
 mod convert;

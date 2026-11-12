@@ -15,7 +15,7 @@ documentation = "https://docs.rs/hexm"
 default = ["std", "f32", "f64", "i8", "i16", "i32", "i64", "isize"]
 
 # No-std supports.
-std = ["glam/std", "serde_core?/std"]
+std = ["glam/std", "approx?/std", "serde_core?/std"]
 libm = ["glam/libm"]
 
 # Type-specific features.
@@ -29,11 +29,13 @@ isize = ["glam/isize"]
 
 # Third-party crate supports.
 serde = ["dep:serde_core"]
+approx = ["dep:approx"]
 
 [dependencies]
 glam = { version = "0.34.3", default-features = false }
 
 # Optional dependencies.
+approx = { version = "0.5.1", default-features = false, optional = true }
 serde_core = { version = "1.0.229", default-features = false, optional = true }
 
 [lints]
