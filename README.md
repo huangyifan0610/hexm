@@ -1,3 +1,3 @@
 # hexm
 
-Axial-coordinate vector types for hexagonal grids.
+An axial-coordinate vector library.
