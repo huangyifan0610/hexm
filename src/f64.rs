@@ -2,6 +2,10 @@
 
 use core::marker::PhantomData;
 
+use glam::DVec2;
+
+use crate::orientation::Orientation;
+
 /// An axial-coordinate vector.
 #[repr(C)]
 pub struct DHex {
@@ -38,5 +42,25 @@ pub const fn dhex(q: f64, r: f64) -> DHex {
         q,
         r,
         s: PhantomData,
+    }
+}
+
+impl DHex {
+    /// Transforms from a cartesian-coordinate vector into an axial-coordinate
+    /// vector.
+    ///
+    /// See also [`Self::into_world_position`] for an inverse function.
+    #[must_use]
+    pub fn from_world_position<O: Orientation>(world_position: DVec2) -> Self {
+        DHex::from_dvec2(<O as Orientation>::FROM_WORLD_POSITION_F64 * world_position)
+    }
+
+    /// Transforms from an axial-coordinate vector into a cartesian-coordinate
+    /// vector.
+    ///
+    /// See also [`Self::from_world_position`] for an inverse function.
+    #[must_use]
+    pub fn into_world_position<O: Orientation>(self) -> DVec2 {
+        <O as Orientation>::INTO_WORLD_POSITION_F64 * self.into_dvec2()
     }
 }

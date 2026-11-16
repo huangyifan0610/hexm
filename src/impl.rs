@@ -425,8 +425,7 @@ macro_rules! impl_hex_convert_glam {
         /// The *X* and *Y* components of the input vector will become the *Q* and
         /// *R* components of the result vector respectively.
         ///
-        #[doc = concat!("See also [`Self::", stringify!($into_vec2), "`] for an inverse function;")]
-        /// and [`From::from`] for an equivalent function.
+        #[doc = concat!("See also [`Self::", stringify!($into_vec2), "`] for an inverse function.")]
         #[inline(always)]
         #[must_use]
         pub const fn $from_vec2(vector: $Vec2) -> Self {
@@ -438,8 +437,7 @@ macro_rules! impl_hex_convert_glam {
         /// The *Q* and *R* components of the `self` vector will become the *X* and
         /// *Y* components of the result vector respectively.
         ///
-        #[doc = concat!("See also [`Self::", stringify!($from_vec2), "`] for an inverse function;")]
-        /// and [`Into::into`] for an equivalent function.
+        #[doc = concat!("See also [`Self::", stringify!($from_vec2), "`] for an inverse function.")]
         #[inline(always)]
         #[must_use]
         pub const fn $into_vec2(self) -> $Vec2 {

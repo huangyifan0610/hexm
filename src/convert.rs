@@ -1,18 +1,3 @@
-#[cfg(feature = "f64")]
-use glam::DVec2;
-#[cfg(feature = "i8")]
-use glam::I8Vec2;
-#[cfg(feature = "i16")]
-use glam::I16Vec2;
-#[cfg(feature = "i64")]
-use glam::I64Vec2;
-#[cfg(feature = "isize")]
-use glam::ISizeVec2;
-#[cfg(feature = "i32")]
-use glam::IVec2;
-#[cfg(feature = "f32")]
-use glam::Vec2;
-
 #[cfg(feature = "f32")]
 use crate::f32::{Hex, hex};
 #[cfg(feature = "f64")]
@@ -97,62 +82,6 @@ impl_convert_for_hex!(IHex, i32, ihex);
 impl_convert_for_hex!(I64Hex, i64, i64hex);
 #[cfg(feature = "isize")]
 impl_convert_for_hex!(ISizeHex, isize, isizehex);
-
-#[cfg(any(
-    feature = "f32",
-    feature = "f64",
-    feature = "i8",
-    feature = "i16",
-    feature = "i32",
-    feature = "i64",
-    feature = "isize",
-))]
-macro_rules! impl_convert_glam_for_hex {
-    ($Self:ty, $Vec2:ty, $from_vec2:ident, $into_vec2:ident) => {
-        impl core::convert::From<$Vec2> for $Self {
-            #[inline(always)]
-            fn from(value: $Vec2) -> Self {
-                <$Self>::$from_vec2(value)
-            }
-        }
-
-        impl core::convert::From<&$Vec2> for $Self {
-            #[inline(always)]
-            fn from(value: &$Vec2) -> Self {
-                <$Self>::$from_vec2(*value)
-            }
-        }
-
-        impl core::convert::From<$Self> for $Vec2 {
-            #[inline(always)]
-            fn from(value: $Self) -> Self {
-                value.$into_vec2()
-            }
-        }
-
-        impl core::convert::From<&$Self> for $Vec2 {
-            #[inline(always)]
-            fn from(value: &$Self) -> Self {
-                value.$into_vec2()
-            }
-        }
-    };
-}
-
-#[cfg(feature = "f32")]
-impl_convert_glam_for_hex!(Hex, Vec2, from_vec2, into_vec2);
-#[cfg(feature = "f64")]
-impl_convert_glam_for_hex!(DHex, DVec2, from_dvec2, into_dvec2);
-#[cfg(feature = "i8")]
-impl_convert_glam_for_hex!(I8Hex, I8Vec2, from_i8vec2, into_i8vec2);
-#[cfg(feature = "i16")]
-impl_convert_glam_for_hex!(I16Hex, I16Vec2, from_i16vec2, into_i16vec2);
-#[cfg(feature = "i32")]
-impl_convert_glam_for_hex!(IHex, IVec2, from_ivec2, into_ivec2);
-#[cfg(feature = "i64")]
-impl_convert_glam_for_hex!(I64Hex, I64Vec2, from_i64vec2, into_i64vec2);
-#[cfg(feature = "isize")]
-impl_convert_glam_for_hex!(ISizeHex, ISizeVec2, from_isizevec2, into_isizevec2);
 
 #[cfg(any(
     feature = "f32",
