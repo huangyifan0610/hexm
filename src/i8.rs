@@ -4,6 +4,25 @@ use core::marker::PhantomData;
 
 /// An axial-coordinate vector.
 #[repr(C)]
+#[cfg_attr(
+    feature = "bevy_reflect",
+    derive(bevy_reflect::Reflect),
+    reflect(
+        Clone,
+        Debug,
+        PartialEq,
+        Hash,
+        bevy_reflect::std_traits::ReflectDefault,
+        bevy_reflect::std_traits::ReflectAdd,
+        bevy_reflect::std_traits::ReflectAddAssign,
+        bevy_reflect::std_traits::ReflectSub,
+        bevy_reflect::std_traits::ReflectSubAssign,
+    )
+)]
+#[cfg_attr(
+    all(feature = "bevy_reflect", feature = "serde"),
+    reflect(bevy_reflect::Serialize, bevy_reflect::Deserialize)
+)]
 pub struct I8Hex {
     /// The *Q* component.
     #[doc(alias = "x")]
@@ -13,6 +32,7 @@ pub struct I8Hex {
     pub r: i8,
     /// The *S* component which is derived from `q + r + s === 0`.
     #[doc(alias = "z")]
+    #[cfg_attr(feature = "bevy_reflect", reflect(ignore, default))]
     pub s: PhantomData<i8>,
 }
 
