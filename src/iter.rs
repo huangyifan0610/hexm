@@ -29,7 +29,7 @@ macro_rules! impl_sum_for_hex {
             where
                 I: core::iter::Iterator<Item = Self>,
             {
-                iter.fold(<$Self>::ZERO, <$Self>::offset)
+                iter.fold(Self::ZERO, Self::offset)
             }
         }
 
@@ -38,7 +38,7 @@ macro_rules! impl_sum_for_hex {
             where
                 I: core::iter::Iterator<Item = &'a $Self>,
             {
-                iter.fold(<$Self>::ZERO, core::ops::Add::add)
+                iter.fold(Self::ZERO, core::ops::Add::add)
             }
         }
     };

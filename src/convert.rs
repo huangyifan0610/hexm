@@ -41,7 +41,7 @@ macro_rules! impl_convert_for_hex {
         impl core::convert::From<[$T; 2]> for $Self {
             #[inline(always)]
             fn from(value: [$T; 2]) -> Self {
-                <$Self>::from_array(value)
+                Self::from_array(value)
             }
         }
 

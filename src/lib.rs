@@ -6,9 +6,6 @@
 
 #![cfg_attr(not(feature = "std"), no_std)]
 
-// re-exports `glam`.
-pub extern crate glam;
-
 #[cfg(feature = "f32")]
 pub mod f32;
 #[cfg(feature = "f64")]
@@ -23,8 +20,6 @@ pub mod i64;
 pub mod i8;
 #[cfg(feature = "isize")]
 pub mod isize;
-#[cfg(any(feature = "f32", feature = "f64"))]
-pub mod orientation;
 
 /// The [crate] prelude.
 pub mod prelude {
@@ -42,8 +37,6 @@ pub mod prelude {
     pub use crate::i64::{I64Hex, i64hex};
     #[cfg(feature = "isize")]
     pub use crate::isize::{ISizeHex, isizehex};
-    #[cfg(any(feature = "f32", feature = "f64"))]
-    pub use crate::orientation::Orientation;
 }
 
 #[cfg(feature = "approx")]
@@ -53,6 +46,8 @@ mod cmp;
 mod convert;
 mod default;
 mod fmt;
+#[cfg(feature = "glam")]
+mod glam;
 mod hash;
 mod r#impl;
 mod iter;

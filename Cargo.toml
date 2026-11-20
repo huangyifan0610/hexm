@@ -15,29 +15,28 @@ documentation = "https://docs.rs/hexm"
 default = ["std", "f32", "f64", "i8", "i16", "i32", "i64", "isize"]
 
 # No-std supports.
-std = ["glam/std", "approx?/std", "bevy_reflect?/std", "serde_core?/std"]
-libm = ["glam/libm"]
+std = ["approx?/std", "bevy_reflect?/std", "glam?/std", "serde_core?/std"]
+libm = ["glam?/std"]
 
 # Type-specific features.
 f32 = []
-f64 = ["glam/f64"]
-i8 = ["glam/i8"]
-i16 = ["glam/i16"]
-i32 = ["glam/i32"]
-i64 = ["glam/i64"]
-isize = ["glam/isize"]
+f64 = ["glam?/f64"]
+i8 = ["glam?/i8"]
+i16 = ["glam?/i16"]
+i32 = ["glam?/i32"]
+i64 = ["glam?/i64"]
+isize = ["glam?/isize"]
 
 # Third-party crate supports.
 approx = ["dep:approx"]
 bevy_reflect = ["dep:bevy_reflect"]
+glam = ["dep:glam", "f32"]
 serde = ["dep:serde_core"]
 
 [dependencies]
-glam = { version = "0.34.3", default-features = false }
-
-# Optional dependencies.
 approx = { version = "0.5.1", default-features = false, optional = true }
 bevy_reflect = { version = "0.20.1", default-features = false, optional = true }
+glam = { version = "0.34.3", default-features = false, optional = true }
 serde_core = { version = "1.0.229", default-features = false, optional = true }
 
 [lints]

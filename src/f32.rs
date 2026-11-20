@@ -2,10 +2,6 @@
 
 use core::marker::PhantomData;
 
-use glam::Vec2;
-
-use crate::orientation::Orientation;
-
 /// An axial-coordinate vector.
 #[repr(C)]
 #[cfg_attr(
@@ -61,25 +57,5 @@ pub const fn hex(q: f32, r: f32) -> Hex {
         q,
         r,
         s: PhantomData,
-    }
-}
-
-impl Hex {
-    /// Transforms from a cartesian-coordinate vector into an axial-coordinate
-    /// vector.
-    ///
-    /// See also [`Self::into_world_position`] for an inverse function.
-    #[must_use]
-    pub fn from_world_position<O: Orientation>(world_position: Vec2) -> Self {
-        Hex::from_vec2(<O as Orientation>::FROM_WORLD_POSITION_F32 * world_position)
-    }
-
-    /// Transforms from an axial-coordinate vector into a cartesian-coordinate
-    /// vector.
-    ///
-    /// See also [`Self::from_world_position`] for an inverse function.
-    #[must_use]
-    pub fn into_world_position<O: Orientation>(self) -> Vec2 {
-        <O as Orientation>::INTO_WORLD_POSITION_F32 * self.into_vec2()
     }
 }

@@ -27,7 +27,7 @@ macro_rules! impl_default_for_hex {
         impl core::default::Default for $Self {
             #[inline(always)]
             fn default() -> Self {
-                <$Self>::ZERO
+                Self::ZERO
             }
         }
     };

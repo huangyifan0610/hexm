@@ -1,18 +1,3 @@
-#[cfg(feature = "f64")]
-use glam::{DVec2, dvec2};
-#[cfg(feature = "i8")]
-use glam::{I8Vec2, i8vec2};
-#[cfg(feature = "i16")]
-use glam::{I16Vec2, i16vec2};
-#[cfg(feature = "i64")]
-use glam::{I64Vec2, i64vec2};
-#[cfg(feature = "isize")]
-use glam::{ISizeVec2, isizevec2};
-#[cfg(feature = "i32")]
-use glam::{IVec2, ivec2};
-#[cfg(feature = "f32")]
-use glam::{Vec2, vec2};
-
 #[cfg(feature = "f32")]
 use crate::f32::{Hex, hex};
 #[cfg(feature = "f64")]
@@ -418,43 +403,6 @@ macro_rules! impl_integral_hex {
     feature = "i64",
     feature = "isize",
 ))]
-macro_rules! impl_hex_convert_glam {
-    ($Vec2:ty, $vec2:path, $new:path, $from_vec2:ident, $into_vec2:ident) => {
-        /// Converts the 2-dimensional vector into an axial-coordinate vector.
-        ///
-        /// The *X* and *Y* components of the input vector will become the *Q* and
-        /// *R* components of the result vector respectively.
-        ///
-        #[doc = concat!("See also [`Self::", stringify!($into_vec2), "`] for an inverse function.")]
-        #[inline(always)]
-        #[must_use]
-        pub const fn $from_vec2(vector: $Vec2) -> Self {
-            $new(vector.x, vector.y)
-        }
-
-        /// Converts the axial-coordinate vector into a [2-dimensional vector].
-        ///
-        /// The *Q* and *R* components of the `self` vector will become the *X* and
-        /// *Y* components of the result vector respectively.
-        ///
-        #[doc = concat!("See also [`Self::", stringify!($from_vec2), "`] for an inverse function.")]
-        #[inline(always)]
-        #[must_use]
-        pub const fn $into_vec2(self) -> $Vec2 {
-            $vec2(self.q, self.r)
-        }
-    };
-}
-
-#[cfg(any(
-    feature = "f32",
-    feature = "f64",
-    feature = "i8",
-    feature = "i16",
-    feature = "i32",
-    feature = "i64",
-    feature = "isize",
-))]
 macro_rules! impl_hex_convert_hex {
     ($( #[$meta:meta] $Other:ty, $other:path, $as_hex:ident, $U:ty; )*) => {
         $(
@@ -475,7 +423,6 @@ macro_rules! impl_hex_convert_hex {
 impl Hex {
     impl_hex!(hex, f32, 0 = 0., 1 = 1.);
     impl_floating_point_hex!(f32);
-    impl_hex_convert_glam!(Vec2, vec2, hex, from_vec2, into_vec2);
     impl_hex_convert_hex! {
         #[cfg(feature = "f64")] DHex, dhex, as_dhex, f64;
         #[cfg(feature = "i8")] I8Hex, i8hex, as_i8hex, i8;
@@ -490,7 +437,6 @@ impl Hex {
 impl DHex {
     impl_hex!(dhex, f64, 0 = 0., 1 = 1.);
     impl_floating_point_hex!(f64);
-    impl_hex_convert_glam!(DVec2, dvec2, dhex, from_dvec2, into_dvec2);
     impl_hex_convert_hex! {
         #[cfg(feature = "f32")] Hex, hex, as_hex, f32;
         #[cfg(feature = "i8")] I8Hex, i8hex, as_i8hex, i8;
@@ -505,7 +451,6 @@ impl DHex {
 impl I8Hex {
     impl_hex!(i8hex, i8, 0 = 0, 1 = 1);
     impl_integral_hex!(i8, u8);
-    impl_hex_convert_glam!(I8Vec2, i8vec2, i8hex, from_i8vec2, into_i8vec2);
     impl_hex_convert_hex! {
         #[cfg(feature = "f32")] Hex, hex, as_hex, f32;
         #[cfg(feature = "f64")] DHex, dhex, as_dhex, f64;
@@ -520,7 +465,6 @@ impl I8Hex {
 impl I16Hex {
     impl_hex!(i16hex, i16, 0 = 0, 1 = 1);
     impl_integral_hex!(i16, u16);
-    impl_hex_convert_glam!(I16Vec2, i16vec2, i16hex, from_i16vec2, into_i16vec2);
     impl_hex_convert_hex! {
         #[cfg(feature = "f32")] Hex, hex, as_hex, f32;
         #[cfg(feature = "f64")] DHex, dhex, as_dhex, f64;
@@ -535,7 +479,6 @@ impl I16Hex {
 impl IHex {
     impl_hex!(ihex, i32, 0 = 0, 1 = 1);
     impl_integral_hex!(i32, u32);
-    impl_hex_convert_glam!(IVec2, ivec2, ihex, from_ivec2, into_ivec2);
     impl_hex_convert_hex! {
         #[cfg(feature = "f32")] Hex, hex, as_hex, f32;
         #[cfg(feature = "f64")] DHex, dhex, as_dhex, f64;
@@ -550,7 +493,6 @@ impl IHex {
 impl I64Hex {
     impl_hex!(i64hex, i64, 0 = 0, 1 = 1);
     impl_integral_hex!(i64, u64);
-    impl_hex_convert_glam!(I64Vec2, i64vec2, i64hex, from_i64vec2, into_i64vec2);
     impl_hex_convert_hex! {
         #[cfg(feature = "f32")] Hex, hex, as_hex, f32;
         #[cfg(feature = "f64")] DHex, dhex, as_dhex, f64;
@@ -565,13 +507,6 @@ impl I64Hex {
 impl ISizeHex {
     impl_hex!(isizehex, isize, 0 = 0, 1 = 1);
     impl_integral_hex!(isize, usize);
-    impl_hex_convert_glam!(
-        ISizeVec2,
-        isizevec2,
-        isizehex,
-        from_isizevec2,
-        into_isizevec2
-    );
     impl_hex_convert_hex! {
         #[cfg(feature = "f32")] Hex, hex, as_hex, f32;
         #[cfg(feature = "f64")] DHex, dhex, as_dhex, f64;
